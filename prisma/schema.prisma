@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique @db.VarChar(255)
+  password   String       @db.VarChar(255)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Session    Session[]
+  Payment    Payment[]
+  Sellers    Sellers[]
+  Products   Products[]
+  Cart       Cart[]
+  Myads      Myads[]
+  Myrequests Myrequests[]
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id])
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Address {
+  id        Int      @id @default(autoincrement())
+  cep       String   @db.VarChar(255)
+  street    String   @db.VarChar(255)
+  city      String   @db.VarChar(255)
+  state     String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Products {
+  id          Int          @id @default(autoincrement())
+  name        String       @db.VarChar(30)
+  description String       @db.VarChar(30)
+  size        String       @db.VarChar(3)
+  price       Int          @db.Integer()
+  status      String       @default("indispovível")
+  amount      Int          @default(0)
+  sellersId   Int
+  Sellers     Sellers      @relation(fields: [sellersId], references: [id])
+  userId      Int
+  User        User         @relation(fields: [userId], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Cart        Cart[]
+  Myads       Myads[]
+  Myrequests  Myrequests[]
+}
+
+model Sellers {
+  id       Int        @id @default(autoincrement())
+  userId   Int
+  User     User       @relation(fields: [userId], references: [id])
+  Products Products[]
+}
+
+model Payment {
+  id             Int      @id @default(autoincrement())
+  value          Int
+  cardIssuer     String
+  cardLastDigits String
+  userId         Int      @unique
+  User           User     @relation(fields: [userId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Myads {
+  id         Int      @id @default(autoincrement())
+  productsId Int      @default(0)
+  Products   Products @relation(fields: [productsId], references: [id])
+  userId     Int
+  User       User     @relation(fields: [userId], references: [id])
+}
+
+model Cart {
+  id         Int      @id @default(autoincrement())
+  productsId Int      @default(0)
+  Products   Products @relation(fields: [productsId], references: [id])
+  userId     Int
+  User       User     @relation(fields: [userId], references: [id])
+}
+
+model Myrequests {
+  id         Int      @id @default(autoincrement())
+  productsId Int      @default(0)
+  Products   Products @relation(fields: [productsId], references: [id])
+  userId     Int
+  User       User     @relation(fields: [userId], references: [id])
+}
