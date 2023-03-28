@@ -11,6 +11,7 @@ import { handleApplicationErrors } from "@/middlewares";
 import {
   usersRouter,
   authenticationRouter,
+  addressRouter,
   // paymentsRouter,
 } from "@/routers";
 
@@ -21,6 +22,7 @@ app
   .get("/health", (_req, res) => res.send("OK!"))
   .use("/users", usersRouter)
   .use("/auth", authenticationRouter)
+  .use("/address", addressRouter)
   // .use("/payments", paymentsRouter)
   .use(handleApplicationErrors);
 

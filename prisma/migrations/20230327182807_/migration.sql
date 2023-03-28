@@ -23,10 +23,11 @@ CREATE TABLE "Session" (
 -- CreateTable
 CREATE TABLE "Address" (
     "id" SERIAL NOT NULL,
-    "cep" VARCHAR(255) NOT NULL,
-    "street" VARCHAR(255) NOT NULL,
+    "cep" INTEGER NOT NULL,
+    "local" VARCHAR(255) NOT NULL,
     "city" VARCHAR(255) NOT NULL,
     "state" VARCHAR(255) NOT NULL,
+    "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -106,6 +107,9 @@ CREATE UNIQUE INDEX "Payment_userId_key" ON "Payment"("userId");
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Address" ADD CONSTRAINT "Address_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Products" ADD CONSTRAINT "Products_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

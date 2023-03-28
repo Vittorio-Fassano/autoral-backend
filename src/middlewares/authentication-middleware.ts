@@ -8,9 +8,11 @@ import { prisma } from "@/config";
 export async function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const authHeader = req.header("Authorization");
   if (!authHeader) return generateUnauthorizedResponse(res);
+  console.log("entrei1");
 
-  const token = authHeader.split(" ")[1];
+  const token = authHeader.split(" ")[0];
   if (!token) return generateUnauthorizedResponse(res);
+  console.log("entrei2");
 
   try {
     const { userId } = jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
@@ -23,8 +25,9 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
     if (!session) return generateUnauthorizedResponse(res);
 
     req.userId = userId;
+    console.log("entrei3");
     //TODO mudar aqui
-    return next();
+    next();
   } catch (err) {
     return generateUnauthorizedResponse(res);
   }

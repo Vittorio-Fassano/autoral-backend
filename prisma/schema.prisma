@@ -23,6 +23,7 @@ model User {
   Cart       Cart[]
   Myads      Myads[]
   Myrequests Myrequests[]
+  Address    Address[]
 }
 
 model Session {
@@ -36,10 +37,12 @@ model Session {
 
 model Address {
   id        Int      @id @default(autoincrement())
-  cep       String   @db.VarChar(255)
-  street    String   @db.VarChar(255)
+  cep       Int      @db.Integer()
+  local     String   @db.VarChar(255)
   city      String   @db.VarChar(255)
   state     String   @db.VarChar(255)
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
