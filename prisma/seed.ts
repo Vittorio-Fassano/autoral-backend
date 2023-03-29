@@ -3,17 +3,35 @@ import dayjs from "dayjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  // let user = await prisma.event.findFirst();
-  // if (user || !user) {
-  //   user = await prisma.event.create({
-  //     data: {
-  //       title: "brechoFut",
-  //     },
-  //   });
-  // }
+  let postAdress = await prisma.address.createMany({
+    data: 
+      {
+        cep: 25660011,
+        state: "rio de janeiro",
+        city: "petrópolis",
+        local: "rua duque de caxias",
+        userId: 1,
+      },
+  });
+  console.log("create user addressed", postAdress);
 
-  console.log("create seed without any values");
+  let newProduct = await prisma.products.createMany({
+    data: [
+      {
+        name: "camisa fluminense grena 2022",
+        price: 200,
+        userId: 1,
+      },
+      {
+        name: "camisa fluminense 120 anos",
+        price: 220,
+        userId: 1,
+      },
+    ],
+  });
+  console.log("create products seed", newProduct);
 }
+
 
 main()
   .catch((e) => {

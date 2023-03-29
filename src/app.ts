@@ -12,6 +12,7 @@ import {
   usersRouter,
   authenticationRouter,
   addressRouter,
+  productsRouter,
   // paymentsRouter,
 } from "@/routers";
 
@@ -23,6 +24,7 @@ app
   .use("/users", usersRouter)
   .use("/auth", authenticationRouter)
   .use("/address", addressRouter)
+  .use("/products", productsRouter)
   // .use("/payments", paymentsRouter)
   .use(handleApplicationErrors);
 

@@ -9,10 +9,10 @@ async function addressInfo( state: string, city: string, cep: number, local: str
     city,
     userId
   };
-  console.log("entrei6");
+  // console.log("entrei6");
 
   const addressTeste = await addressRepository.addressCreate(addressData);
-  console.log("entrei7");
+  // console.log("entrei7");
   return addressTeste;
 }
 

@@ -38,12 +38,7 @@ CREATE TABLE "Address" (
 CREATE TABLE "Products" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(30) NOT NULL,
-    "description" VARCHAR(30) NOT NULL,
-    "size" VARCHAR(3) NOT NULL,
     "price" INTEGER NOT NULL,
-    "status" TEXT NOT NULL DEFAULT E'indispovível',
-    "amount" INTEGER NOT NULL DEFAULT 0,
-    "sellersId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -113,9 +108,6 @@ ALTER TABLE "Address" ADD CONSTRAINT "Address_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "Products" ADD CONSTRAINT "Products_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Products" ADD CONSTRAINT "Products_sellersId_fkey" FOREIGN KEY ("sellersId") REFERENCES "Sellers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Sellers" ADD CONSTRAINT "Sellers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

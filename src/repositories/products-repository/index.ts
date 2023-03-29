@@ -1,24 +1,27 @@
 import { prisma } from "@/config";
-import { Address } from "@prisma/client";
+import { Products } from "@prisma/client";
 
-export type AddressParams = Omit<Address, "id" | "createdAt" | "updatedAt">
+export type ProductsParams = Omit<Products, "id" | "createdAt" | "updatedAt" >
 
-async function productsCreate(addressData: AddressParams) {
-  const teste = await prisma.address.create({
+async function productsCreate(params: ProductsParams) {
+  return prisma.products.create({
     data: {
-      cep: addressData.cep,
-      local: addressData.local,
-      state: addressData.state,
-      city: addressData.city,
-      userId: addressData.userId,
+      ...params,
     }
   });
-  console.log(teste);
-  return teste;
+  // const product = await prisma.products.create({
+  //   data: {
+  //     name: productsData.name,
+  //     price: productsData.price,
+  //     userId: productsData.userId,
+  //   }
+  // });
+  // console.log(product);
+  // return response.send(product);
 }
 
-const addressRepository = {
+const productsRepository = {
   productsCreate,
 };
 
-export default addressRepository;
+export default productsRepository;

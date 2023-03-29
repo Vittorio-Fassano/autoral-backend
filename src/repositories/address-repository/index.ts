@@ -13,7 +13,7 @@ async function addressCreate(addressData: AddressParams) {
       userId: addressData.userId,
     }
   });
-  console.log(teste);
+  // console.log(teste);
   return teste;
 }
 

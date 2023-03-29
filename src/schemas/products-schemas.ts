@@ -1,10 +1,8 @@
-import { AddressParams } from "@/repositories/address-repository";
+import { ProductsParams } from "@/repositories/products-repository";
 import Joi from "joi";
 
-export const AddressSchema = Joi.object<AddressParams>({
-  state: Joi.string().min(2).required(),
-  city: Joi.string().min(2).required(),
-  cep: Joi.number().min(6).required(),
-  local: Joi.string().email().required(),
+export const ProductsSchema = Joi.object<ProductsParams>({
+  name: Joi.string().min(5).required(),
+  price: Joi.number().min(2).required(),
   userId: Joi.number().required(),
 });
