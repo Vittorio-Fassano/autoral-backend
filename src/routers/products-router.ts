@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { authenticateToken } from "@/middlewares";
-import { productsPost } from "@/controllers/products-controller";
+import { productsPost, cartPost } from "@/controllers/products-controller";
 
 const productsRouter = Router();
 
 productsRouter
   .all("/*", authenticateToken)
-  .post("/", productsPost);
+  .post("/post", productsPost)
+  .post("/cart/:id", cartPost);
 
 export { productsRouter };

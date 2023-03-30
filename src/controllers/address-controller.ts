@@ -6,13 +6,13 @@ import { Response } from "express";
 import httpStatus from "http-status";
 
 export async function addressPost(req: AuthenticatedRequest, res: Response) {
-  // console.log("entrei4");
+  console.log("entrei4");
   const { userId } = req;
   const { state, city, cep, local } = req.body;
   try {
-    const addressInfos = await addressService.addressInfo(cep, local, state, city, userId);
-    // console.log("entrei5");
-    return res.status(httpStatus.OK).send(addressInfos);
+    const address = await addressService.addressInfo(cep, local, state, city, userId);
+    console.log("entrei8");
+    return res.status(httpStatus.OK).send(address);
   } catch (error) {
     if (error.name === "UnauthorizedError") {
       return res.sendStatus(httpStatus.UNAUTHORIZED);

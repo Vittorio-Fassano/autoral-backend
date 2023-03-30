@@ -53,6 +53,8 @@ model Products {
   price      Int          @db.Integer()
   userId     Int
   User       User         @relation(fields: [userId], references: [id])
+  sellersId  Int
+  Sellers    Sellers      @relation(fields: [sellersId], references: [id])
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   Cart       Cart[]
@@ -64,6 +66,7 @@ model Sellers {
   id       Int        @id @default(autoincrement())
   userId   Int
   User     User       @relation(fields: [userId], references: [id])
+  Products Products[]
 }
 
 model Payment {

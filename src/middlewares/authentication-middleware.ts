@@ -15,7 +15,7 @@ export async function authenticateToken(req: AuthenticatedRequest, res: Response
   console.log("entrei2");
 
   try {
-    const { userId } = jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
+    const { userId } = await jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
 
     const session = await prisma.session.findFirst({
       where: {

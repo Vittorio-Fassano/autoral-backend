@@ -1,27 +1,53 @@
 import { prisma } from "@/config";
-import { Products } from "@prisma/client";
+import { Products, Sellers, Cart } from "@prisma/client";
 
-export type ProductsParams = Omit<Products, "id" | "createdAt" | "updatedAt" >
+export type SellersParams = Omit<Sellers, "id" | "createdAt" | "updatedAt">
+export type ProductsParams = Omit<Products, "id" | "createdAt" | "updatedAt">
+export type CartParams = Omit<Cart, "id" | "createdAt" | "updatedAt">
 
-async function productsCreate(params: ProductsParams) {
-  return prisma.products.create({
+async function createSellers(params: SellersParams) {
+  return prisma.sellers.create({
     data: {
       ...params,
     }
   });
-  // const product = await prisma.products.create({
-  //   data: {
-  //     name: productsData.name,
-  //     price: productsData.price,
-  //     userId: productsData.userId,
-  //   }
-  // });
-  // console.log(product);
-  // return response.send(product);
+}
+
+async function findSellerId(userId: number) {
+  return prisma.sellers.findFirst({
+    where: {
+      userId,
+    }
+  });
+}
+
+async function productsCreate(productsData: ProductsParams) {
+  console.log("enter in prodCrea");
+  return prisma.products.create({
+    data: {
+      name: productsData.name,
+      price: productsData.price,
+      userId: productsData.userId,
+      sellersId: productsData.sellersId,
+    }
+  });
+}
+
+async function cartAdd(cartData: CartParams) {
+  console.log("enter in cartAdd");
+  return prisma.cart.create({
+    data: {
+      userId: cartData.userId,
+      productsId: cartData.productsId,
+    }
+  });
 }
 
 const productsRepository = {
   productsCreate,
+  createSellers,
+  findSellerId,
+  cartAdd
 };
 
 export default productsRepository;
