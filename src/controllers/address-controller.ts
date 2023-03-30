@@ -8,9 +8,9 @@ import httpStatus from "http-status";
 export async function addressPost(req: AuthenticatedRequest, res: Response) {
   console.log("entrei4");
   const { userId } = req;
-  const { state, city, cep, local } = req.body;
+  const { cep, local, city, state } = req.body;
   try {
-    const address = await addressService.addressInfo(cep, local, state, city, userId);
+    const address = await addressService.addressInfo(cep, local, city, state, userId);
     console.log("entrei8");
     return res.status(httpStatus.OK).send(address);
   } catch (error) {

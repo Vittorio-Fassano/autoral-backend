@@ -22,11 +22,11 @@ async function findSellerId(userId: number) {
 }
 
 async function productsCreate(productsData: ProductsParams) {
-  console.log("enter in prodCrea");
+  console.log("enter in prodCreat", productsData);
   return prisma.products.create({
     data: {
       name: productsData.name,
-      price: productsData.price,
+      price: +productsData.price,
       userId: productsData.userId,
       sellersId: productsData.sellersId,
     }

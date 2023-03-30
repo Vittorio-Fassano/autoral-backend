@@ -7,6 +7,6 @@ const productsRouter = Router();
 productsRouter
   .all("/*", authenticateToken)
   .post("/post", productsPost)
-  .post("/cart/:id", cartPost);
+  .post("/cart/:productsId", cartPost);
 
 export { productsRouter };

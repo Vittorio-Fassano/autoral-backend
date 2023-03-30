@@ -9,11 +9,12 @@ export async function productsPost(req: AuthenticatedRequest, res: Response) {
   console.log("entrei4");
   const { userId } = req;
   const { name, price } = req.body;
+  const productsIdNumber = parseInt(price);
   try {
     await productsService.createSeller(userId);
     const seller = await productsService.findSellerId(userId);
 
-    const products = await productsService.productsInfo(name, price, userId, seller.id);
+    const products = await productsService.productsInfo(name, productsIdNumber, userId, seller.id);
     console.log("entrei5");
 
     return res.status(httpStatus.OK).send(products);

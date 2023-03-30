@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import addressRepository from "@/repositories/address-repository";
+import { Console } from "console";
 
-async function addressInfo( state: string, city: string, cep: number, local: string, userId: number) {
+async function addressInfo(cep: number, local: string, city: string, state: string, userId: number) {
+  console.log(cep, local, city, state, userId);
   const addressData = {
     cep,
     local,
@@ -9,7 +11,7 @@ async function addressInfo( state: string, city: string, cep: number, local: str
     city,
     userId
   };
-  console.log("entrei5");
+  console.log("entrei5", addressData);
 
   const address = await addressRepository.addressCreate(addressData);
   console.log("entrei7");
