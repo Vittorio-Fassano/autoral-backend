@@ -25,9 +25,9 @@ async function productsCreate(productsData: ProductsParams) {
   console.log("enter in prodCreat", productsData);
   return prisma.products.create({
     data: {
+      userId: productsData.userId,
       name: productsData.name,
       price: +productsData.price,
-      userId: productsData.userId,
       sellersId: productsData.sellersId,
     }
   });

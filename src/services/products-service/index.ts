@@ -19,6 +19,7 @@ async function findSellerId(userId: number) {
 }
 
 async function productsInfo(name: string, price: number, userId: number, sellersId: number) {
+  console.log(name, price, userId, sellersId);
   const productsData = {
     name,
     price,
