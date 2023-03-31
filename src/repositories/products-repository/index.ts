@@ -43,11 +43,32 @@ async function cartAdd(cartData: CartParams) {
   });
 }
 
+async function allProducts() {
+  console.log("enter in dashboard");
+  return prisma.products.findMany({
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      Sellers: {
+        select: {
+          User: {
+            select: {
+              email: true,
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 const productsRepository = {
   productsCreate,
   createSellers,
   findSellerId,
-  cartAdd
+  cartAdd,
+  allProducts
 };
 
 export default productsRepository;

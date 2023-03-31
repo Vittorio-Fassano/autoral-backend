@@ -46,11 +46,17 @@ async function cartInfos(userId: number, productsId: number) {
   return cart;
 }
 
+async function dashboardInfos() {
+  const allProd = await productsRepository.allProducts();
+  return allProd;
+}
+
 const productsService = {
   productsInfo,
   createSeller,
   findSellerId,
   cartInfos,
+  dashboardInfos,
 };
 
 export default productsService;

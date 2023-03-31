@@ -42,3 +42,16 @@ export async function cartPost(req: AuthenticatedRequest, res: Response) {
     }
   }
 }
+
+export async function dashboard(req: AuthenticatedRequest, res: Response) {
+  try {
+    const products = await productsService.dashboardInfos();
+    console.log("entrei5");
+
+    return res.status(httpStatus.OK).send(products);
+  } catch (error) {
+    if (error.name === "UnauthorizedError") {
+      return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+  }
+}
